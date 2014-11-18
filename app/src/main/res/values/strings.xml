@@ -13,5 +13,6 @@
     <string name="pref_units_key">metric</string>
     <string name="pref_units_title">select metric</string>
     <string name="pref_units_default">metric</string>
+    <string name="action_location">View location</string>
 
 </resources>
