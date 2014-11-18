@@ -1,10 +1,15 @@
 package com.example.android.sunshine;
 
+import android.content.ActivityNotFoundException;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v7.app.ActionBarActivity;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.Toast;
 
 public class MainActivity extends ActionBarActivity {
 
@@ -32,9 +37,22 @@ public class MainActivity extends ActionBarActivity {
             Intent intent = new Intent(this, SettingsActivity.class);
             startActivity(intent);
             return true;
+        } else if (id == R.id.action_location) {
+            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(this);
+            String location = prefs.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            Uri uri = Uri.parse("geo:0,0")
+                    .buildUpon()
+                    .appendQueryParameter("q", location)
+                    .build();
+            intent.setData(uri);
+            try {
+                startActivity(intent);
+            } catch (ActivityNotFoundException e) {
+                Toast.makeText(this, "No map app found", Toast.LENGTH_SHORT).show();
+            }
+            return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
-
 }

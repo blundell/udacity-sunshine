@@ -1,6 +1,5 @@
 package com.example.android.sunshine;
 
-import android.content.ActivityNotFoundException;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.net.Uri;
@@ -18,7 +17,6 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import org.json.JSONException;
 
@@ -90,17 +88,6 @@ public class ForecastFragment extends Fragment {
         int id = item.getItemId();
         if (id == R.id.action_refresh) {
             updateWeather();
-            return true;
-        } else if (id == R.id.action_location) {
-            SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(getActivity());
-            String location = prefs.getString(getString(R.string.pref_location_key), getString(R.string.pref_location_default));
-            Intent intent = new Intent(Intent.ACTION_VIEW);
-            intent.setData(Uri.parse("geo:0,0?q=" + location));
-            try {
-                startActivity(intent);
-            } catch (ActivityNotFoundException e) {
-                Toast.makeText(getActivity(), "No map app found", Toast.LENGTH_SHORT).show();
-            }
             return true;
         } else {
             return super.onOptionsItemSelected(item);
