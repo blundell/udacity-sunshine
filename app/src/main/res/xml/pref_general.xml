@@ -9,8 +9,9 @@
         android:title="@string/pref_location_title" />
 
     <ListPreference
+        android:defaultValue="@string/pref_units_default"
         android:entries="@array/units"
-        android:entryValues="@array/units"
+        android:entryValues="@array/units_api"
         android:key="@string/pref_units_key"
         android:title="@string/pref_units_title" />
 
